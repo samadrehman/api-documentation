@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureFlow - Advanced API Protection & API Shield | Multiple API Management</title>
+    <meta name="description" content="SecureFlow provides production-grade API protection and a robust API shield. Manage multiple API keys and endpoints with ease. Check out our open-source API github repo.">
+    <meta name="keywords" content="api, api protection, api shield, api github repo, multiple api, rate limiter, secure flow, jwt authentication">
+    <link rel="stylesheet" href="docs_demo.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">SECURE<span>FLOW</span></div>
+            <ul>
+                <li><a href="/INSTALL.md">Installation</a></li>
+                <li><a href="/README.md">Readme</a></li>
+                <li><a href="/API_DOCUMENTATION.md">Full API Reference</a></li>
+                <li><a href="https://github.com/samadrehman/secureflow-api-rate-LIMITER" target="_blank" rel="noopener">API GitHub Repo</a></li>
+            </ul>
+            
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Advanced API Protection & API Shield</h1>
+            <p>SecureFlow is a self-hosted API Shield designed to manage multiple API endpoints with dynamic rate limiting, JWT authentication, and real-time monitoring.</p>
+            <div class="hero-cta">
+                <code>pip install secureflow-api-rate-LIMITER</code>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <section id="install" class="section">
+            <h2>Installation Guide</h2>
+            <div class="card">
+                <p>To get started with the SecureFlow Rate Limiter, install the package via pip:</p>
+                <pre><code>pip install secureflow-api-rate-LIMITER</code></pre>
+                <p>Once installed, initialize the service with interactive setup follow the documentation</p>
+               
+               
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>API Shield & Dynamic Limits</h3>
+                    <p>Deploy a robust API shield for your infrastructure. Configure limits at startup or override them per API key via the Admin API without restarting.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>JWT Authentication</h3>
+                    <p>Secure registration, login, and token refresh cycles to protect your management endpoints.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Multiple API Management</h3>
+                    <p>Efficiently manage multiple API instances and developer tiers from a single centralized platform.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Real-time Monitoring</h3>
+                    <p>Monitor your API shield performance with a WebSocket-powered dashboard to track traffic and blocked requests live.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="usage" class="section">
+            <h2>Complete Project Workflow</h2>
+            <p>Follow these steps to integrate the rate limiter into your application logic.</p>
+            <ol class="workflow-steps">
+                <li>
+                    <strong>User Onboarding:</strong> Register via <code>/auth/register</code> and login via <code>/auth/login</code> to receive a JWT.
+                    <pre><code>curl -X POST /auth/login -d '{"email":"user@example.com", "password":"..."}'</code></pre>
+                </li>
+                <li>
+                    <strong>API Key Creation:</strong> Use the JWT to generate a unique API key (<code>rk_live_...</code>).
+                    <pre><code>curl -X POST /auth/create_api_key -H "Authorization: Bearer [JWT_TOKEN]"</code></pre>
+                </li>
+                <li>
+                    <strong>SDK Pre-Check:</strong> Before making a request, have your client check availability via <code>/sdk/check</code>.
+                </li>
+                <li>
+                    <strong>Execution & Tracking:</strong> Call your protected endpoints and report telemetry back via <code>/sdk/track</code> to keep analytics accurate.
+                </li>
+                <li>
+                    <strong>Monitoring:</strong> Use the Admin Dashboard at <code>/admin/dashboard</code> to view live traffic and logs.
+                </li>
+            </ol>
+        </section>
+
+        <section id="api" class="section">
+            <h2>Full API Endpoint Reference</h2>
+            
+            <h3>Authentication (JWT)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Endpoint</th>
+                        <th>Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>/auth/register</code></td><td>POST</td><td>Create user account and organization</td></tr>
+                    <tr><td><code>/auth/login</code></td><td>POST</td><td>Exchange credentials for Access/Refresh tokens</td></tr>
+                    <tr><td><code>/auth/refresh</code></td><td>POST</td><td>Rotate expired Access tokens</td></tr>
+                    <tr><td><code>/auth/create_api_key</code></td><td>POST</td><td>Generate a new hashed API Key (JWT required)</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Protected Data & Usage</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Endpoint</th>
+                        <th>Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>/data</code></td><td>GET</td><td>Protected sample endpoint (Requires <code>api_key</code>)</td></tr>
+                    <tr><td><code>/usage</code></td><td>GET</td><td>Check current remaining requests and lifetime stats</td></tr>
+                    <tr><td><code>/health</code></td><td>GET</td><td>System health and database connectivity status</td></tr>
+                    <tr><td><code>/api/metrics</code></td><td>GET</td><td>Real-time counters for success/blocked requests</td></tr>
+                </tbody>
+            </table>
+
+            <h3>SDK & Client Support</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Endpoint</th>
+                        <th>Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>/sdk</code></td><td>GET</td><td>Interactive SDK Setup and Demo page</td></tr>
+                    <tr><td><code>/sdk.js</code></td><td>GET</td><td>Downloadable client-side JavaScript SDK</td></tr>
+                    <tr><td><code>/sdk/check</code></td><td>POST</td><td>Pre-request rate limit verification</td></tr>
+                    <tr><td><code>/sdk/track</code></td><td>POST</td><td>Client-side telemetry reporting</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Admin & Management</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Endpoint</th>
+                        <th>Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>/admin/dashboard</code></td><td>GET</td><td>Visual management interface for all keys</td></tr>
+                    <tr><td><code>/admin/users</code></td><td>GET</td><td>List all registered API keys and tiers</td></tr>
+                    <tr><td><code>/admin/set_rate_limit</code></td><td>POST</td><td>Override limits for a specific key</td></tr>
+                    <tr><td><code>/admin/block_key</code></td><td>POST</td><td>Permanently disable a key</td></tr>
+                    <tr><td><code>/admin/unblock_key</code></td><td>POST</td><td>Restore access to a previously blocked key</td></tr>
+                    <tr><td><code>/logs</code></td><td>GET</td><td>Retrieve historical request logs</td></tr>
+                    <tr><td><code>/admin/audit</code></td><td>GET</td><td>View logs of admin configuration changes</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 SecureFlow API Rate Limiter. MIT Licensed. 
+               Check out our <a href="https://github.com/samadrehman/secureflow-api-rate-LIMITER"</a> <a =  href="https://github.com/samadrehman/secureflow-api-rate-LIMITER" > source code</a> </p>
+        </div>
+    </footer>
+</body>
+</html>
